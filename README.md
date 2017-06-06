@@ -14,7 +14,7 @@ The plugin has/will have the following features:
  - Cart on user session
  - panel config screen (SOON)
  - Contact Form 7 integration (SOON)
- - RestFul API for theme developers (SOON)
+ - RestFul API for theme developers
  - Shortcode/Widgets support (SOON)
  - Cart Update with AJAX (no refresh) and theme integration (SOON)
 
