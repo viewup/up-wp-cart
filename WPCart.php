@@ -99,7 +99,7 @@ class WPCart
      * @param $id
      * @return WPCartItem|null
      */
-    private function getItem($id)
+    public function getItem($id)
     {
         // get the item by position
         $item = $this->items[$this->getItemPos($id)];

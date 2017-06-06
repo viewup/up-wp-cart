@@ -19,6 +19,15 @@ define('UPWPCART_PLUGIN_DIR', __DIR__);
 define('UPWPCART_CLASS_NAME', 'WPCart');
 define('UPWPCART_SESSION_NAME', 'UP_WP_CART');
 
+if (!defined('UP_API_BASE'))
+    define('UP_API_BASE', 'up');
+if (!defined('UP_API_VERSION'))
+    define('UP_API_VERSION', 'v1');
+
+define('UPWPCART_API_BASE', UP_API_BASE . '/' . UP_API_VERSION);
+define('UPWPCART_API_ROUTE', 'cart');
+
+
 /**
  * Import class
  */
@@ -33,5 +42,3 @@ if (class_exists(UPWPCART_CLASS_NAME)) {
 
     $_SESSION[UPWPCART_SESSION_NAME] = $cart;
 }
-
-//var_dump($_SESSION[UPWPCART_SESSION_NAME]);die;
