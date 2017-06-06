@@ -68,7 +68,7 @@ class WPCart
 
         // removes the item from the array, if exists
         if ($itemPos >= 0)
-            array_splice($this->items, $itemPos, $itemPos);
+            array_splice($this->items, $itemPos, 1);
 
         return $this->updateCart();
     }

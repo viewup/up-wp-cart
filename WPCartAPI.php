@@ -17,6 +17,8 @@ class WPCartAPI extends WP_REST_Controller
 
     private $base = UPWPCART_API_BASE;
     private $route = '/' . UPWPCART_API_ROUTE;
+    private $initialized = false;
+
     public $cart = null;
 
     /**
@@ -33,6 +35,9 @@ class WPCartAPI extends WP_REST_Controller
      */
     function register_routes()
     {
+        if ($this->initialized) return false;
+
+        $this->initialized = true;
         $base = $this->base;
         $route = $this->route;
 
@@ -47,11 +52,12 @@ class WPCartAPI extends WP_REST_Controller
                 'callback' => $this->getCallback('add'),
                 'args' => array(
                     'id' => array(
-                        'validate_callback' => 'is_numeric'
+                        'required' => true,
+                        'validate_callback' => array($this, 'validateNumeric'),
                     ),
                     'amount' => array(
                         'default' => 1,
-                        'validate_callback' => 'is_numeric'
+                        'validate_callback' => array($this, 'validateNumeric'),
                     )
                 ),
             ),
@@ -73,7 +79,7 @@ class WPCartAPI extends WP_REST_Controller
                 'args' => array(
                     'amount' => array(
                         'required' => false,
-                        'validate_callback' => 'is_numeric'
+                        'validate_callback' => array($this, 'validateNumeric'),
                     )
                 ),
             ),
@@ -82,39 +88,40 @@ class WPCartAPI extends WP_REST_Controller
                 'callback' => array($this, 'remove'),
             ),
         ));
+        return true;
     }
 
     public function get()
     {
-        return $this->cart;
+        return $this->cart->get();
     }
 
     public function getItem(WP_REST_Request $request)
     {
         $id = $request['id'];
-        return $this->cart->getItem($id);
+        return $this->cart->getItem(intval($id));
     }
 
     public function add(WP_REST_Request $request)
     {
         $id = $request['id'];
         $amount = $request['amount'];
-        return $this->cart->add($id, $amount);
+        return $this->cart->add(intval($id), intval($amount))->get();
     }
 
     public function remove(WP_REST_Request $request)
     {
-        return $this->cart->remove($request['id']);
+        return $this->cart->remove(intval($request['id']))->get();
     }
 
     public function update(WP_REST_Request $request)
     {
-        return $this->cart->update($request['id'], $request['amount']);
+        return $this->cart->update(intval($request['id']), intval($request['amount']))->get();
     }
 
     public function clean()
     {
-        return $this->cart->clean();
+        return $this->cart->clean()->get();
     }
 
     // private methods
@@ -122,5 +129,12 @@ class WPCartAPI extends WP_REST_Controller
     private function getCallback($name)
     {
         return array($this, $name);
+    }
+
+    // Validators
+
+    public function validateNumeric($value)
+    {
+        return is_numeric($value);
     }
 }

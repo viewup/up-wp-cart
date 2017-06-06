@@ -21,8 +21,10 @@ The plugin has/will have the following features:
 ## License
 The plugin is under MIT license.
 
-## Theme support
-SOON...
+## Theme/Plugins support
 
-## Pull Requests?
-OF COURSE! Help us get the plugin better!
+for now, the theme can change the item's `content` shape. by default, it looks like the rest API post. only replace the `cart_content` filter with anything you want!
+SOON, will be a fancy theme API...
+
+## Pull Requests
+OF COURSE! Help us get the plugin better! read the [Contributing section](CONTRIBUTING.md) to know how!
