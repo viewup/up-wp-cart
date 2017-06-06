@@ -28,6 +28,9 @@ if ( ! defined( 'UP_API_VERSION' ) ) {
 if ( ! defined( 'CART_CONTENT_FILTER' ) ) {
 	define( 'CART_CONTENT_FILTER', 'cart_content' );
 }
+if ( ! defined( 'CART_PRICE_FILTER' ) ) {
+	define( 'CART_PRICE_FILTER', 'cart_price' );
+}
 
 define( 'UPWPCART_API_BASE', UP_API_BASE . '/' . UP_API_VERSION );
 define( 'UPWPCART_API_ROUTE', 'cart' );
@@ -65,8 +68,26 @@ function default_cart_content_filter( $id ) {
 	return $post;
 }
 
-// sets the default filter
+/**
+ * The default cart price filter
+ *
+ * @param int $id the item ID
+ * @param float $price The default price
+ *
+ * @return mixed
+ */
+function default_cart_price_filter( $id, $price ) {
+	$newPrice = get_post_meta( $id, 'price' );
+	if ( ! $newPrice ) {
+		$newPrice = $price;
+	}
+
+	return $price;
+}
+
+// sets the default filters
 add_filter( CART_CONTENT_FILTER, 'default_cart_content_filter' );
+add_filter( CART_PRICE_FILTER, 'default_cart_price_filter' );
 
 
 add_action( 'init', 'UpCartInit' );

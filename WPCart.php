@@ -8,145 +8,177 @@
  * Time: 3:43 PM
  */
 
-define('DEFAULT_PRICE_META', 'price');
-define('DEFAULT_POST_TYPE', 'post');
-
+// Require item
 require_once __DIR__ . '/WPCartItem.php';
 
 /**
  * Class WPCart
  */
-class WPCart
-{
-    // Array of items
-    private $items = array();
-    // Total price
-    private $total = 0;
+class WPCart {
+	// Array of items
+	private $items = array();
 
-    private $price_meta = DEFAULT_PRICE_META;
-    private $post_type = DEFAULT_POST_TYPE;
+	// Total price
+	private $total = 0;
 
-    function __construct($options = array())
-    {
-        if ($options['price_meta'])
-            $this->price_meta = $options['price_meta'];
-        if ($options['post_type'])
-            $this->post_type = $options['post_type'];
-    }
+	/**
+	 * WPCart constructor.
+	 *
+	 * @param array $options cart options
+	 */
+	function __construct( $options = array() ) {
+		// TODO: import old JSON cart
+	}
 
-    public function get()
-    {
-        return (object)array(
-            'items' => $this->items,
-            'total' => $this->total,
-        );
-    }
+	/**
+	 * @return object cart object
+	 */
+	public function get() {
+		return (object) array(
+			'items' => $this->items,
+			'total' => $this->total,
+		);
+	}
 
-    public function add($id, $amount = 1)
-    {
-        // check if item is already on the array
-        $item = $this->getItem($id);
-        if ($item)
-            return $this->update($item->ID, $amount);
+	/**
+	 * ADD item
+	 * @param int $id
+	 * @param int $amount
+	 *
+	 * @return WPCart
+	 */
+	public function add( $id, $amount = 1 ) {
+		// check if item is already on the array
+		$item = $this->getItem( $id );
+		if ( $item ) {
+			return $this->update( $item->ID, $amount + $item->amount );
+		}
 
-        // gets the product price
-        $price = floatval(get_post_meta($id, $this->price_meta));
+		// Create new item if new
+		$item = new WPCartItem( $id, $amount );
 
-        // Create new item if new
-        $item = new WPCartItem($id, $price, $amount);
+		// Add item to the items array
+		array_push( $this->items, $item );
 
-        // Add item to the items array
-        array_push($this->items, $item);
+		return $this->updateCart();
+	}
 
-        return $this->updateCart();
-    }
+	/**
+	 * REMOVE item
+	 * @param int $id
+	 *
+	 * @return WPCart
+	 */
+	public function remove( $id ) {
+		// Gets the item position
+		$itemPos = $this->getItemPos( $id );
 
-    public function remove($id)
-    {
-        // Gets the item position
-        $itemPos = $this->getItemPos($id);
+		// removes the item from the array, if exists
+		if ( $itemPos >= 0 ) {
+			array_splice( $this->items, $itemPos, 1 );
+		}
 
-        // removes the item from the array, if exists
-        if ($itemPos >= 0)
-            array_splice($this->items, $itemPos, 1);
+		return $this->updateCart();
+	}
 
-        return $this->updateCart();
-    }
+	/**
+	 * UPDATE item
+	 * @param int $id
+	 * @param int $amount
+	 *
+	 * @return WPCart
+	 */
+	public function update( $id, $amount = 0 ) {
+		// get the item by ID
+		$item = $this->getItem( $id );
 
-    public function update($id, $amount = 0)
-    {
-        // get the item by ID
-        $item = $this->getItem($id);
+		// if exists, update the item total
+		if ( $item ) {
+			$item->update( $amount );
+		}
+		if ( $item && ! $item->amount ) {
+			return $this->remove( $id );
+		}
 
-        // if exists, update the item total
-        if ($item)
-            $item->update($amount);
+		return $this->updateCart();
+	}
 
-        return $this->updateCart();
-    }
+	/**
+	 * CLEAN cart
+	 * @return WPCart
+	 */
+	public function clean() {
+		// clear the items array
+		$this->items = array();
 
-    public function clean()
-    {
-        // clear the items array
-        $this->items = array();
+		return $this->updateCart();
 
-        return $this->updateCart();
+	}
 
-    }
+	/**
+	 * Get item by ID
+	 *
+	 * @param $id
+	 *
+	 * @return WPCartItem|null
+	 */
+	public function getItem( $id ) {
+		// get the item by position
+		$item = $this->items[ $this->getItemPos( $id ) ];
 
-    /**
-     * Get item by ID
-     * @param $id
-     * @return WPCartItem|null
-     */
-    public function getItem($id)
-    {
-        // get the item by position
-        $item = $this->items[$this->getItemPos($id)];
+		// if no item, return NULL
+		if ( ! $item ) {
+			$item = null;
+		}
 
-        // if no item, return NULL
-        if (!$item) $item = null;
+		return $item;
+	}
 
-        return $item;
-    }
+	/**
+	 * Get item position by ID
+	 *
+	 * @param $id
+	 *
+	 * @return int
+	 */
+	private function getItemPos( $id ) {
+		// try to find the item with the mathing ID
+		foreach ( $this->items as $pos => $item ) {
+			/* @var $item WPCartItem */
+			if ( $item->ID == $id ) {
+				return $pos;
+			}
+		}
 
-    /**
-     * Get item position by ID
-     * @param $id
-     * @return int
-     */
-    private function getItemPos($id)
-    {
-        // try to find the item with the mathing ID
-        foreach ($this->items as $pos => $item) {
-            /* @var $item WPCartItem */
-            if ($item->ID == $id)
-                return $pos;
-        }
+		// if not found, returns '-1'
+		return - 1;
+	}
 
-        // if not found, returns '-1'
-        return -1;
-    }
+	/**
+	 * UPDATE cart info
+	 * @return WPCart
+	 */
+	private function updateCart() {
+		return $this->calculateTotal();
+	}
 
-    private function updateCart()
-    {
-        return $this->calculateTotal();
-    }
+	/**
+	 * UPDATE cart total
+	 * @return $this
+	 */
+	private function calculateTotal() {
+		// starts with 0
+		$total = 0;
 
-    private function calculateTotal()
-    {
-        // starts with 0
-        $total = 0;
+		foreach ( $this->items as $item ) {
+			/* @var $item WPCartItem */
+			// increments with the item total
+			$total += $item->total;
+		}
 
-        foreach ($this->items as $item) {
-            /* @var $item WPCartItem */
-            // increments with the item total
-            $total += $item->total;
-        }
+		// Replace the total with new value
+		$this->total = $total;
 
-        // Replace the total with new value
-        $this->total = $total;
-
-        return $this;
-    }
+		return $this;
+	}
 }
