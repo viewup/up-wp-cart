@@ -19,7 +19,7 @@ The plugin has/will have the following features:
  - Cart Update with AJAX (no refresh) and theme integration (SOON)
 
 ## License
-The plugin is under MIT license.
+The plugin is under [GPL-2.0](LICENSE.md) license.
 
 ## Theme/Plugins support
 
