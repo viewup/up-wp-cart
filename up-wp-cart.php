@@ -72,22 +72,30 @@ function default_cart_content_filter( $id ) {
  * The default cart price filter
  *
  * @param int $id the item ID
- * @param float $price The default price
+ * @param float|int $price The default price
  *
  * @return mixed
  */
-function default_cart_price_filter( $id, $price ) {
-	$newPrice = get_post_meta( $id, 'price' );
-	if ( ! $newPrice ) {
+function default_cart_price_filter( $id, $price = 0 ) {
+	$price_meta = get_option( 'upcart_meta' );
+	$newPrice   = get_post_meta( $id, $price_meta, true );
+
+	// parse the value to float, fixing ','
+	if ( is_string( $newPrice ) ) {
+		$newPrice = floatval( str_replace( ',', '.', $newPrice ) );
+	}
+
+	// replaces invalid value
+	if ( ! $newPrice || !is_numeric($newPrice) ) {
 		$newPrice = $price;
 	}
 
-	return $price;
+	return $newPrice;
 }
 
 // sets the default filters
 add_filter( CART_CONTENT_FILTER, 'default_cart_content_filter' );
-add_filter( CART_PRICE_FILTER, 'default_cart_price_filter' );
+add_filter( CART_PRICE_FILTER, 'default_cart_price_filter', 10, 2 );
 
 
 add_action( 'init', 'UpCartInit' );
@@ -117,3 +125,8 @@ add_action( 'rest_api_init', function () {
 	}
 	$cartApi->register_routes();
 } );
+
+/*
+ * import admin page configs
+ */
+require_once UPWPCART_PLUGIN_DIR . '/admin/admin.php';

@@ -4,8 +4,8 @@
 
   - [x] Base class/API
   - [x] `$_SESSION` support
-  - [X] `WP_API` support
-  - [ ] panel config screen
+  - [x] `WP_API` support
+  - [x] panel config screen
   - [ ] `Contact Form 7` integration
   - [ ] shortcode support
   - [ ] widget support

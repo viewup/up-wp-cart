@@ -53,6 +53,7 @@ class WPCartItem {
 		if ( ! is_numeric( $amount ) ) {
 			$amount = $this->amount;
 		}
+
 		// if lower than 0
 		if ( $amount < 0 ) {
 			$amount = 0;

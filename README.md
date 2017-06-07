@@ -12,9 +12,10 @@ The plugin has/will have the following features:
 
  - post types and meta integration
  - Cart on user session
- - panel config screen (SOON)
- - Contact Form 7 integration (SOON)
  - RestFul API for theme developers
+ - Filters modifications for theme developers
+ - panel config screen
+ - Contact Form 7 integration (SOON)
  - Shortcode/Widgets support (SOON)
  - Cart Update with AJAX (no refresh) and theme integration (SOON)
 
@@ -24,7 +25,7 @@ The plugin is under [GPL-2.0](LICENSE.md) license.
 ## Theme/Plugins support
 
 for now, the theme can change the item's `content` shape. by default, it looks like the rest API post. only replace the `cart_content` filter with anything you want!
-SOON, will be a fancy theme API...
+SOON, will be a fancy API and shortcodes...
 
 ## Pull Requests
 OF COURSE! Help us get the plugin better! read the [Contributing section](CONTRIBUTING.md) to know how!
