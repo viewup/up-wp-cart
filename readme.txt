@@ -24,5 +24,6 @@ The plugin integrates with `contact form 7`, allowing you to insert on your cont
 3. Use the UP Cart screen to configure the plugin
 4. Select the desired Post Type to use as products (default Posts)
 5. insert the desired Post Meta name to use as price (TIP: if using Custom Fields plugin, insert the field name)
+6. insert the desired Currency Symbol to use on price
 
 `<?php code(); // goes in backticks ?>`

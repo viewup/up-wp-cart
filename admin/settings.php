@@ -25,6 +25,14 @@ function upcart_settings_setup() {
 		'show_in_rest' => true,
 		'default'      => 'post',
 	) );
+
+	// register the CURRENCY setting
+	register_setting( UPWPCART_PLUGIN_DOMAIN, 'upcart_currency', array(
+		'type'         => 'string',
+		'description'  => 'Defines the price currency',
+		'show_in_rest' => true,
+		'default'      => '$',
+	) );
 }
 
 add_action( 'admin_init', 'upcart_settings_setup' );
