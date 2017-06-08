@@ -126,6 +126,8 @@ class WPCart {
 	 * @return WPCartItem|null
 	 */
 	public function getItem( $id ) {
+
+		$id = (int) $id;
 		// get the item by position
 		$item = $this->items[ $this->getItemPos( $id ) ];
 
