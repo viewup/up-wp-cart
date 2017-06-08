@@ -51,10 +51,11 @@ function upcart_mail_render( $html = true ) {
 	/* @var $cart WPCart */
 	global $cart;
 	if ( $html ) {
-		return apply_filters( 'cart_email_html', '', $cart );
+		$content = apply_filters( 'cart_email_html', '', $cart );
+	} else {
+		$content = apply_filters( 'cart_email_text', '', $cart );
 	}
 
-	$content = apply_filters( 'cart_email_text', '', $cart );
 
 	// TODO: add option to choose empty cart after render
 	$cart->clean();
