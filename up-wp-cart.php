@@ -25,11 +25,11 @@ if ( ! defined( 'UP_API_BASE' ) ) {
 if ( ! defined( 'UP_API_VERSION' ) ) {
 	define( 'UP_API_VERSION', 'v1' );
 }
-if ( ! defined( 'CART_CONTENT_FILTER' ) ) {
-	define( 'CART_CONTENT_FILTER', 'cart_content' );
+if ( ! defined( 'UPWPCART_CONTENT_FILTER' ) ) {
+	define( 'UPWPCART_CONTENT_FILTER', 'cart_content' );
 }
-if ( ! defined( 'CART_PRICE_FILTER' ) ) {
-	define( 'CART_PRICE_FILTER', 'cart_price' );
+if ( ! defined( 'UPWPCART_PRICE_FILTER' ) ) {
+	define( 'UPWPCART_PRICE_FILTER', 'cart_price' );
 }
 
 define( 'UPWPCART_API_BASE', UP_API_BASE . '/' . UP_API_VERSION );
@@ -41,16 +41,6 @@ define( 'UPWPCART_API_ROUTE', 'cart' );
  */
 require_once UPWPCART_PLUGIN_DIR . "/WPCart.php";
 
-/**
- * Start session
- */
-add_action( 'init', 'UpCartSessionStart', 1 );
-function UpCartSessionStart() {
-	if ( ! session_id() ) {
-		session_start();
-	}
-}
-
 
 /**
  * The default cart content filter
@@ -61,7 +51,7 @@ function UpCartSessionStart() {
  *
  * @return WP_Post|null The post object or null
  */
-function default_cart_content_filter( $id ) {
+function upcart_default_cart_content_filter( $id ) {
 	$post_obj = get_post( $id );
 	$post     = apply_filters( 'rest_the_post', $post_obj, $id );
 
@@ -76,7 +66,7 @@ function default_cart_content_filter( $id ) {
  *
  * @return mixed
  */
-function default_cart_price_filter( $id, $price = 0 ) {
+function upcart_default_cart_price_filter( $id, $price = 0 ) {
 	$price_meta = get_option( 'upcart_meta' );
 	$newPrice   = get_post_meta( $id, $price_meta, true );
 
@@ -86,7 +76,7 @@ function default_cart_price_filter( $id, $price = 0 ) {
 	}
 
 	// replaces invalid value
-	if ( ! $newPrice || !is_numeric($newPrice) ) {
+	if ( ! $newPrice || ! is_numeric( $newPrice ) ) {
 		$newPrice = $price;
 	}
 
@@ -94,22 +84,34 @@ function default_cart_price_filter( $id, $price = 0 ) {
 }
 
 // sets the default filters
-add_filter( CART_CONTENT_FILTER, 'default_cart_content_filter' );
-add_filter( CART_PRICE_FILTER, 'default_cart_price_filter', 10, 2 );
+add_filter( UPWPCART_CONTENT_FILTER, 'upcart_default_cart_content_filter' );
+add_filter( UPWPCART_PRICE_FILTER, 'upcart_default_cart_price_filter', 10, 2 );
 
 
-add_action( 'init', 'UpCartInit' );
+add_action( 'init', 'upcart_init' );
 
-function UpCartInit() {
-	global $cart;
-	if ( class_exists( UPWPCART_CLASS_NAME ) ) {
-		$cart = $_SESSION[ UPWPCART_SESSION_NAME ];
-		if ( ! $cart ) {
-			$cart = new WPCart();
-		}
-
-		$_SESSION[ UPWPCART_SESSION_NAME ] = $cart;
+function upcart_init() {
+	if ( ! class_exists( UPWPCART_CLASS_NAME ) ) {
+		return;
 	}
+
+	global $cart;
+
+	/**
+	 * Start session
+	 *
+	 * The cart must stay on the session to persists.
+	 */
+	if ( ! session_id() ) {
+		session_start();
+	}
+	$cart = $_SESSION[ UPWPCART_SESSION_NAME ];
+	if ( ! $cart ) {
+		$cart = new WPCart();
+	}
+
+	$_SESSION[ UPWPCART_SESSION_NAME ] = $cart;
+
 }
 
 /**
@@ -117,14 +119,20 @@ function UpCartInit() {
  */
 require_once UPWPCART_PLUGIN_DIR . '/WPCartAPI.php';
 
-add_action( 'rest_api_init', function () {
+
+/**
+ * Initialize REST API
+ */
+add_action( 'rest_api_init', 'upcart_rest_api_init' );
+
+function upcart_rest_api_init() {
 	global $cartApi;
 	global $cart;
 	if ( ! $cartApi ) {
 		$cartApi = new WPCartAPI( $cart );
 	}
 	$cartApi->register_routes();
-} );
+}
 
 /*
  * import admin page configs
