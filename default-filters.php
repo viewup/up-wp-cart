@@ -44,6 +44,13 @@ function upcart_default_cart_price_filter( $id, $price = 0 ) {
 	return $newPrice;
 }
 
+/**
+ * The default price filter
+ *
+ * @param float|int $price
+ *
+ * @return string
+ */
 function upcart_default_format_price( $price = 0 ) {
 	// get currency option
 	$currency = get_option( 'upcart_currency' );
@@ -55,7 +62,29 @@ function upcart_default_format_price( $price = 0 ) {
 	return $price;
 }
 
+/**
+ * The default HTML attributes formatter
+ *
+ * @param array $props
+ *
+ * @return string
+ */
+function upcart_default_html_attr_formatter( $props = array() ) {
+	// returns if already formatted or invalid
+	if ( ! is_array( $props ) ) {
+		return $props;
+	}
+	$attr = '';
+	foreach ( $props as $name => $value ) {
+		$attr .= ' ' . $name . '="' . esc_attr( $value ) . '"';
+	}
+
+	// remove whitespace
+	return trim( $attr );
+}
+
 // sets the default filters
 add_filter( UPWPCART_CONTENT_FILTER, 'upcart_default_cart_content_filter' );
 add_filter( UPWPCART_PRICE_FILTER, 'upcart_default_cart_price_filter', 10, 2 );
 add_filter( 'upcart_format_price', 'upcart_default_format_price', 10, 2 );
+add_filter( 'upcart_html_attr', 'upcart_default_html_attr_formatter' );

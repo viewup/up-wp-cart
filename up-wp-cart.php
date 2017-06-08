@@ -55,6 +55,10 @@ require_once UPWPCART_PLUGIN_DIR . '/admin/admin.php';
  * Import WPCF7 Integration
  */
 require_once UPWPCART_PLUGIN_DIR . '/wpcf7/wpcf7.php';
+/**
+ * Import Shortcode
+ */
+require_once UPWPCART_PLUGIN_DIR . '/shortcode/shortcode.php';
 
 
 /**
