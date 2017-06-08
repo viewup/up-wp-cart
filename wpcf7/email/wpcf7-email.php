@@ -16,8 +16,6 @@
  */
 function upcart_wpcf7_format( $mail_params, $form = null ) {
 
-//	var_dump($form->get_properties()['mail']['use_html'], $form->get_properties());
-	// the email content
 	$email = $mail_params['body'];
 
 	// check if the form has the cart hook
@@ -50,13 +48,18 @@ add_filter( 'wpcf7_mail_components', 'upcart_wpcf7_format', 50, 2 );
  * @return string - Email Content
  */
 function upcart_mail_render( $html = true ) {
+	/* @var $cart WPCart */
 	global $cart;
 	if ( $html ) {
 		return apply_filters( 'cart_email_html', '', $cart );
 	}
 
-	return apply_filters( 'cart_email_text', '', $cart );
+	$content = apply_filters( 'cart_email_text', '', $cart );
 
+	// TODO: add option to choose empty cart after render
+	$cart->clean();
+
+	return $content;
 }
 
 require_once __DIR__ . '/wpcf7-email-render.php';
