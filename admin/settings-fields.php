@@ -11,7 +11,7 @@ function upcart_settings_fields() {
 	// register the meta field
 	add_settings_field(
 		'upcart_field_meta',
-		__('Price Meta', UPWPCART_PLUGIN_DOMAIN),
+		__( 'Price Meta', UPWPCART_PLUGIN_DOMAIN ),
 		'upcart_field_meta_cb',
 		UPWPCART_SETTINGS_PAGE,
 		'upcart_settings_section'
@@ -20,8 +20,17 @@ function upcart_settings_fields() {
 	// register the post_type field
 	add_settings_field(
 		'upcart_field_post_type',
-		"Post - " . __( 'Type' ),
+		"Post - " . __( "Type" ),
 		'upcart_field_post_type_cb',
+		UPWPCART_SETTINGS_PAGE,
+		'upcart_settings_section'
+	);
+
+	// register the currency field
+	add_settings_field(
+		'upcart_field_currency',
+		__( "Currency" ),
+		'upcart_field_currency_cb',
 		UPWPCART_SETTINGS_PAGE,
 		'upcart_settings_section'
 	);
@@ -41,7 +50,8 @@ function upcart_field_meta_cb() {
 	?>
     <input type="text" name="upcart_meta" value="<?= esc_attr( $setting ); ?>" placeholder="price">
     <p class="description">
-		<?php esc_html_e( 'The meta field or custom field name that defines the product price', UPWPCART_PLUGIN_DOMAIN ); ?>.
+		<?php esc_html_e( 'The meta field or custom field name that defines the product price', UPWPCART_PLUGIN_DOMAIN ); ?>
+        .
     </p>
     <p class="description">
         <span><?php esc_html_e( 'Default' ); ?>:</span>
@@ -52,7 +62,7 @@ function upcart_field_meta_cb() {
 
 // Post type Field render
 function upcart_field_post_type_cb() {
-	// get the value of the setting we've registered with register_setting()
+	// get the value of the setting
 	$setting    = get_option( 'upcart_post_type' );
 	$post_types = get_post_types( array( 'public' => true ), 'objects' );
 	// output the field
@@ -68,6 +78,24 @@ function upcart_field_post_type_cb() {
     <p class="description">
         <span><?php esc_html_e( 'Default' ); ?>:</span>
         <strong><?php echo $post_types['post']->label ?></strong>
+    </p>
+	<?php
+}
+
+// Post type Field render
+function upcart_field_currency_cb() {
+	// get the value of the setting
+	$setting = get_option( 'upcart_currency' );
+	// output the field
+	?>
+    <input type="text" name="upcart_currency" value="<?= esc_attr( $setting ); ?>" placeholder="$">
+    <p class="description">
+		<?php esc_html_e( 'The currency symbol of the price', UPWPCART_PLUGIN_DOMAIN ); ?>
+        .
+    </p>
+    <p class="description">
+        <span><?php esc_html_e( 'Default' ); ?>:</span>
+        <strong>$</strong>
     </p>
 	<?php
 }

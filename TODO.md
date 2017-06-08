@@ -6,8 +6,9 @@
   - [x] `$_SESSION` support
   - [x] `WP_API` support
   - [x] panel config screen
-  - [ ] `Contact Form 7` integration
+  - [x] `Contact Form 7` integration
   - [ ] shortcode support
+  - [ ] base translation
   - [ ] widget support
   - [ ] JavaScript/AJAX support
 

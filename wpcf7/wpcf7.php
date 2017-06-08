@@ -18,5 +18,5 @@ require_once __DIR__ . "/wpcf7-validation.php";
 require_once __DIR__ . "/wpcf7-tag-generator.php";
 
 
-// Email rendering
-//require_once __DIR__ . "/wpcf7-email.php";
+// Email handler
+require_once __DIR__ . "/email/wpcf7-email.php";
