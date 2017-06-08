@@ -6,11 +6,11 @@
 
 // fallback to cart content filter (eg: the plugin inserted on theme directly)
 
-if ( ! defined( 'CART_CONTENT_FILTER' ) ) {
-	define( 'CART_CONTENT_FILTER', 'cart_content' );
+if ( ! defined( 'UPWPCART_CONTENT_FILTER' ) ) {
+	define( 'UPWPCART_CONTENT_FILTER', 'cart_content' );
 }
-if ( ! defined( 'CART_PRICE_FILTER' ) ) {
-	define( 'CART_PRICE_FILTER', 'cart_price' );
+if ( ! defined( 'UPWPCART_PRICE_FILTER' ) ) {
+	define( 'UPWPCART_PRICE_FILTER', 'cart_price' );
 }
 
 
@@ -36,8 +36,8 @@ class WPCartItem {
 		if ( ! is_numeric( $price ) ) {
 			$price = 0;
 		}
-		$this->content = apply_filters( CART_CONTENT_FILTER, $this->ID, $price );
-		$this->price   = apply_filters( CART_PRICE_FILTER, $this->ID, $price, $this->content );
+		$this->content = apply_filters( UPWPCART_CONTENT_FILTER, $this->ID, $price );
+		$this->price   = apply_filters( UPWPCART_PRICE_FILTER, $this->ID, $price, $this->content );
 		$this->update( $amount );
 	}
 
