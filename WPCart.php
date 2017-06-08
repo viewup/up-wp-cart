@@ -42,6 +42,7 @@ class WPCart {
 
 	/**
 	 * ADD item
+	 *
 	 * @param int $id
 	 * @param int $amount
 	 *
@@ -65,6 +66,7 @@ class WPCart {
 
 	/**
 	 * REMOVE item
+	 *
 	 * @param int $id
 	 *
 	 * @return WPCart
@@ -83,6 +85,7 @@ class WPCart {
 
 	/**
 	 * UPDATE item
+	 *
 	 * @param int $id
 	 * @param int $amount
 	 *
@@ -133,6 +136,16 @@ class WPCart {
 
 		return $item;
 	}
+
+	/**
+	 * verify if the cart is empty
+	 * @return bool is empty
+	 */
+	public function isEmpty() {
+		return sizeof( $this->items ) == 0;
+	}
+
+	// PRIVATE
 
 	/**
 	 * Get item position by ID
