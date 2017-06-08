@@ -25,7 +25,7 @@ function upcart_options_page_html() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
-	showMessages();
+	upcart_show_messages();
 	?>
     <div class="wrap">
         <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -43,7 +43,7 @@ function upcart_options_page_html() {
 	<?php
 }
 
-function showMessages() {
+function upcart_show_messages() {
 	// success messages
 	if ( isset( $_GET['settings-updated'] ) ) {
 		add_settings_error( 'upcart_messages', 'upcart_message', __( 'Settings saved.' ), 'updated' );

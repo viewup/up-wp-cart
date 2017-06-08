@@ -119,14 +119,20 @@ function upcart_init() {
  */
 require_once UPWPCART_PLUGIN_DIR . '/WPCartAPI.php';
 
-add_action( 'rest_api_init', function () {
+
+/**
+ * Initialize REST API
+ */
+add_action( 'rest_api_init', 'upcart_rest_api_init' );
+
+function upcart_rest_api_init() {
 	global $cartApi;
 	global $cart;
 	if ( ! $cartApi ) {
 		$cartApi = new WPCartAPI( $cart );
 	}
 	$cartApi->register_routes();
-} );
+}
 
 /*
  * import admin page configs
