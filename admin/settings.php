@@ -33,6 +33,13 @@ function upcart_settings_setup() {
 		'show_in_rest' => true,
 		'default'      => '$',
 	) );
+
+	register_setting( UPWPCART_PLUGIN_DOMAIN, 'upcart_redirect', array(
+		'type'         => 'string',
+		'description'  => 'Defines what page redirect after a cart interaction. Current page if empty',
+		'show_in_rest' => true,
+		'default'      => '',
+	) );
 }
 
 add_action( 'admin_init', 'upcart_settings_setup' );
