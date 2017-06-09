@@ -21,13 +21,20 @@ class WPCart {
 	// Total price
 	private $total = 0;
 
+	private $ID = null;
+
 	/**
 	 * WPCart constructor.
+	 * TODO: import old JSON cart
 	 *
 	 * @param array $options cart options
 	 */
 	function __construct( $options = array() ) {
-		// TODO: import old JSON cart
+		// cart ID for external identification
+		if ( $options['ID'] ) {
+			$this->ID = $options['ID'];
+		}
+
 	}
 
 	/**
@@ -137,6 +144,10 @@ class WPCart {
 		return $item;
 	}
 
+	public function getID() {
+		return $this->ID;
+	}
+
 	/**
 	 * verify if the cart is empty
 	 * @return bool is empty
@@ -168,10 +179,17 @@ class WPCart {
 	}
 
 	/**
-	 * UPDATE cart info
+	 * UPDATE cart info middleware
+	 *
+	 * makes all the necessary updates and calls the action, passing the instance
 	 * @return WPCart
 	 */
 	private function updateCart() {
+		$this->calculateTotal();
+
+		// warns the update
+		do_action( 'upwpcart_update', $this );
+
 		return $this->calculateTotal();
 	}
 
