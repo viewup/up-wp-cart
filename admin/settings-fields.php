@@ -34,6 +34,15 @@ function upcart_settings_fields() {
 		UPWPCART_SETTINGS_PAGE,
 		'upcart_settings_section'
 	);
+
+	// register the redirect field
+	add_settings_field(
+		'upcart_field_redirect',
+		__( "Redirect page" ),
+		'upcart_field_redirect_cb',
+		UPWPCART_SETTINGS_PAGE,
+		'upcart_settings_section'
+	);
 }
 
 add_action( 'admin_init', 'upcart_settings_fields' );
@@ -96,6 +105,34 @@ function upcart_field_currency_cb() {
     <p class="description">
         <span><?php esc_html_e( 'Default' ); ?>:</span>
         <strong>$</strong>
+    </p>
+	<?php
+}
+
+// Post type Field render
+function upcart_field_redirect_cb() {
+	// get the value of the setting
+	$setting = get_option( 'upcart_redirect' );
+	$pages   = get_pages();
+	// output the field
+	?>
+    <select name="upcart_redirect" value="<?= esc_attr( $setting ); ?>">
+		<?php
+		$default_label = __( "The same page", UPWPCART_PLUGIN_DOMAIN );
+		echo "<option value=\"\">{$default_label}</option>";
+		foreach ( $pages as $value => $page ) {
+			/* @var $page WP_Post */
+			$selected = $setting == (string) $page->ID ? 'selected' : '';
+			echo "<option value=\"{$page->ID}\" {$selected} >{$page->post_title}</option>";
+		}
+		?>
+    </select>
+    <p class="description">
+		<?php esc_html_e( 'The page to redirect after a cart iteraction.', UPWPCART_PLUGIN_DOMAIN ); ?>.
+    </p>
+    <p class="description">
+        <span><?php esc_html_e( 'Default' ); ?>:</span>
+        <strong><?php esc_html_e( 'The current page', UPWPCART_PLUGIN_DOMAIN ); ?></strong>
     </p>
 	<?php
 }
