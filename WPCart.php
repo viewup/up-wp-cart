@@ -15,13 +15,15 @@ require_once __DIR__ . '/WPCartItem.php';
  * Class WPCart
  */
 class WPCart {
-	// Array of items
-	private $items = array();
+
+	// cart ID (for external identification)
+	private $ID = null;
 
 	// Total price
 	private $total = 0;
 
-	private $ID = null;
+	// Array of items
+	private $items = array();
 
 	/**
 	 * WPCart constructor.

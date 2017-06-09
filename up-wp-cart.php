@@ -58,11 +58,13 @@ require_once UPWPCART_PLUGIN_DIR . '/admin/admin.php';
  */
 require_once UPWPCART_PLUGIN_DIR . '/wpcf7/wpcf7.php';
 /**
+ * Import Form Controller
+ */
+require_once UPWPCART_PLUGIN_DIR . '/form/form.php';
+/**
  * Import Shortcode
  */
 require_once UPWPCART_PLUGIN_DIR . '/shortcode/shortcode.php';
-
-
 /**
  * Import global cart initializer
  */

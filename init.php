@@ -61,15 +61,16 @@ function upcart_cookie_update( $cart ) {
 		return;
 	}
 
+
 	// checks if the cart is empty or has data
 	if ( $cart->isEmpty() ) {
 		// unset cookie if empty
 		unset( $_COOKIE[ UPWPCART_COOKIE_NAME ] );
-		setcookie( UPWPCART_COOKIE_NAME, null, - 3600 );
+		setcookie( UPWPCART_COOKIE_NAME, null, - 3600, '/' );
 
 	} else {
 		// refresh cookie and session if not empty
-		setcookie( UPWPCART_COOKIE_NAME );
+		setcookie( UPWPCART_COOKIE_NAME, 1, 0, '/' );
 		upwpcart_session_start();
 		$_SESSION[ UPWPCART_SESSION_NAME ] = $cart;
 	}

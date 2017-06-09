@@ -17,15 +17,22 @@
 function upwpcart_shortcode_item( $props = array(), $children = '', $tag = '' ) {
 	global $post;
 	global $cart_item_id;
+	global $wp;
+
 	if ( ! $cart_item_id ) {
 		$cart_item_id = $post->ID;
 	}
 
-
-	$props = upwpcart_shortcode_atts( array(
+	$props    = upwpcart_shortcode_atts( array(
 		'id'    => $cart_item_id,
 		'class' => ''
 	), $props, $tag );
+	$redirect = get_option( 'upcart_redirect' );
+
+	if ( ! $redirect ) {
+		// sets the current url as redirect if none
+		$redirect = home_url( add_query_arg( array(), $wp->request ) );
+	}
 
 	$cart_item_id    = (int) $props['id'];
 	$props['method'] = 'post';
@@ -40,6 +47,7 @@ function upwpcart_shortcode_item( $props = array(), $children = '', $tag = '' ) 
 
 	$content = "<form {$attr} data-upwp-cart-item=\"{$cart_item_id}\">";
 	$content .= "<input type=\"hidden\" name=\"upwpcart-item\" value=\"{$cart_item_id}\" />";
+	$content .= "<input type=\"hidden\" name=\"upwpcart-redirect\" value=\"{$redirect}\" />";
 	$content .= do_shortcode( $children );
 	$content .= "</form>";
 

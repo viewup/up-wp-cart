@@ -1,11 +1,16 @@
 #  Plugin form controller
 
-Controls when POST and GET request are made to this plugin
+Controls when POST and GET request are made to this plugin.
+
+The form controller will:
+ - Detect POST requests to the plugin
+ - transform the POST request in cart actions
+ - Make changes on the cart
+ - Redirects
 
 ## TODO:
- - ADD query vars
- - get_header - Hook for checking post content
- - wp_redirect - Redirect after a post action (to the same page or the plugin configured page)
- - OPTION: redirect page (a selected page for redirect)
- - FIELD: adicionar campo hidden no formulário indicando a url de redirecionamento
- - Cart: renderizar lista de produtos no carrinho
+ - [x] get_header - Hook for checking post content
+ - [x] wp_redirect - Redirect after a post action (to the same page or the plugin configured page)
+ - [x] OPTION: redirect page (a selected page for redirect)
+ - [x] FIELD: ADD redirect hidden field on form
+ - [ ] ADD query vars (register and on redirect)
