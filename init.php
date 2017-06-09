@@ -7,6 +7,7 @@
  * Initialize global CART and SESSION
  */
 function upcart_init() {
+	// returns if no cass
 	if ( ! class_exists( UPWPCART_CLASS_NAME ) ) {
 		return;
 	}
@@ -18,15 +19,21 @@ function upcart_init() {
 	 *
 	 * The cart must stay on the session to persists.
 	 */
+	// check if user passed cart cookie
 	if ( isset( $_COOKIE[ UPWPCART_COOKIE_NAME ] ) ) {
-		upwpcart_start_session();
+		// start session
+		upwpcart_session_start();
+		// and get session's cart
 		$cart = $_SESSION[ UPWPCART_SESSION_NAME ];
-		if ( ! $cart ) {
-			$cart = upwpcart_new_main_cart();
 
+		// if no cart in session
+		if ( ! $cart ) {
+			// create new cart and set in session
+			$cart                              = upwpcart_new_main_cart();
 			$_SESSION[ UPWPCART_SESSION_NAME ] = $cart;
 		}
 	} else {
+		// if no cookie, creates empty cart
 		$cart = upwpcart_new_main_cart();
 	}
 }
@@ -41,7 +48,6 @@ function upcart_rest_api_init() {
 		$cartApi = new WPCartAPI( $cart );
 	}
 	$cartApi->register_routes();
-//	var_dump($cartApi);die;
 }
 
 /**
@@ -62,7 +68,10 @@ function upcart_cookie_update( $cart ) {
 		setcookie( UPWPCART_COOKIE_NAME, null, - 3600 );
 
 	} else {
+		// refresh cookie and session if not empty
 		setcookie( UPWPCART_COOKIE_NAME );
+		upwpcart_session_start();
+		$_SESSION[ UPWPCART_SESSION_NAME ] = $cart;
 	}
 }
 
@@ -77,7 +86,7 @@ add_action( 'upwpcart_update', 'upcart_cookie_update' );
  * Initialize session
  * @return bool if is initialized or was already initialized
  */
-function upwpcart_start_session() {
+function upwpcart_session_start() {
 	if ( ! session_id() ) {
 		session_start();
 

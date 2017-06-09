@@ -21,8 +21,8 @@ define( 'UPWPCART_SESSION_NAME', 'UP_WP_CART' );
 define( 'UPWPCART_COOKIE_NAME', 'upwpcart_init' );
 define( 'UPWPCART_MAIN_ID', 'upwpcart_main' );
 
-if ( ! defined( 'UPWPCART_API_BASE' ) ) {
-	define( 'UPWPCART_API_BASE', 'up' );
+if ( ! defined( 'UPWPCART_API_DOMAIN' ) ) {
+	define( 'UPWPCART_API_DOMAIN', 'up' );
 }
 if ( ! defined( 'UPWPCART_API_VERSION' ) ) {
 	define( 'UPWPCART_API_VERSION', 'v1' );
@@ -34,7 +34,7 @@ if ( ! defined( 'UPWPCART_PRICE_FILTER' ) ) {
 	define( 'UPWPCART_PRICE_FILTER', 'cart_price' );
 }
 
-define( 'UPWPCART_API_BASE', UPWPCART_API_BASE . '/' . UPWPCART_API_VERSION );
+define( 'UPWPCART_API_BASE', UPWPCART_API_DOMAIN . '/' . UPWPCART_API_VERSION );
 define( 'UPWPCART_API_ROUTE', 'cart' );
 
 /**
