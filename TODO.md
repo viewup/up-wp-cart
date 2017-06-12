@@ -7,7 +7,7 @@
   - [x] `WP_API` support
   - [x] panel config screen
   - [x] `Contact Form 7` integration
-  - [ ] shortcode support
+  - [x] shortcode support
   - [ ] base translation
   - [ ] widget support
   - [ ] JavaScript/AJAX support

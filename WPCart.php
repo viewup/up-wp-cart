@@ -15,13 +15,15 @@ require_once __DIR__ . '/WPCartItem.php';
  * Class WPCart
  */
 class WPCart {
-	// Array of items
-	private $items = array();
+
+	// cart ID (for external identification)
+	private $ID = null;
 
 	// Total price
 	private $total = 0;
 
-	private $ID = null;
+	// Array of items
+	private $items = array();
 
 	/**
 	 * WPCart constructor.
@@ -133,6 +135,8 @@ class WPCart {
 	 * @return WPCartItem|null
 	 */
 	public function getItem( $id ) {
+
+		$id = (int) $id;
 		// get the item by position
 		$item = $this->items[ $this->getItemPos( $id ) ];
 
@@ -144,8 +148,20 @@ class WPCart {
 		return $item;
 	}
 
+	/**
+	 * returns the cart ID
+	 * @return mixed
+	 */
 	public function getID() {
 		return $this->ID;
+	}
+
+	/**
+	 * returns the cart total
+	 * @return float
+	 */
+	public function getTotal() {
+		return $this->total;
 	}
 
 	/**
