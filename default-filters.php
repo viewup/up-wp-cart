@@ -99,7 +99,7 @@ function upcart_default_html_attr_formatter( $props = array() ) {
 	return trim( $attr );
 }
 
-function upcart_default_auto_display_content( $content = '' ) {
+function upcart_default_auto_display_excerpt( $content = '' ) {
 
 	global $post;
 	$autoDisplay     = (bool) get_option( 'upcart_auto_display' );
@@ -113,6 +113,14 @@ function upcart_default_auto_display_content( $content = '' ) {
 
 }
 
+function upcart_default_auto_display_content( $content = '' ) {
+	if ( is_single() || !is_search() ) {
+		$content = upcart_default_auto_display_excerpt( $content );
+	}
+
+	return $content;
+}
+
 // sets the default filters
 add_filter( UPWPCART_CONTENT_FILTER, 'upcart_default_cart_content_filter' );
 add_filter( UPWPCART_PRICE_FILTER, 'upcart_default_cart_price_filter', 10, 2 );
@@ -121,4 +129,5 @@ add_filter( 'upcart_format_price', 'upcart_default_format_price', 10, 2 );
 add_filter( 'upcart_format_item_title', 'upcart_default_cart_item_title_filter', 10, 2 );
 
 add_filter( 'the_content', 'upcart_default_auto_display_content', 20 );
+add_filter( 'the_excerpt', 'upcart_default_auto_display_excerpt', 20 );
 
