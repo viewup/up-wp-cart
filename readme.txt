@@ -1,14 +1,14 @@
 === UP WP Cart ===
 Contributors: viewup
-Donate link: http://wordpress.org/
-Tags: cart, ecommerce, list
-Requires at least: 4.6
+Donate link:
+Tags: cart, ecommerce, list, contact form 7
+Requires at least: 3.5
 Tested up to: 4.7
-Stable tag: 4.3
+Stable tag: 0.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Simple cart plugin for WordPress
+Simple cart plugin for WordPress, with Contact Form 7 integration
 
 == Description ==
 
@@ -26,4 +26,8 @@ The plugin integrates with `contact form 7`, allowing you to insert on your cont
 5. insert the desired Post Meta name to use as price (TIP: if using Custom Fields plugin, insert the field name)
 6. insert the desired Currency Symbol to use on price
 
-`<?php code(); // goes in backticks ?>`
+== Frequently Asked Questions ==
+
+= Contributing? =
+
+Access the [GitHub Repository](https://github.com/viewup/up-wp-cart) for more info
