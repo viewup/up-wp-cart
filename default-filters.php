@@ -99,9 +99,26 @@ function upcart_default_html_attr_formatter( $props = array() ) {
 	return trim( $attr );
 }
 
+function upcart_default_auto_display_content( $content = '' ) {
+
+	global $post;
+	$autoDisplay     = (bool) get_option( 'upcart_auto_display' );
+	$autoDisplayPost = get_option( 'upcart_post_type' );
+
+	if ( $autoDisplay && $post->post_type == $autoDisplayPost ) {
+		$content .= do_shortcode( '[wpcart_item]' );
+	}
+
+	return $content;
+
+}
+
 // sets the default filters
 add_filter( UPWPCART_CONTENT_FILTER, 'upcart_default_cart_content_filter' );
 add_filter( UPWPCART_PRICE_FILTER, 'upcart_default_cart_price_filter', 10, 2 );
 add_filter( 'upcart_html_attr', 'upcart_default_html_attr_formatter' );
 add_filter( 'upcart_format_price', 'upcart_default_format_price', 10, 2 );
 add_filter( 'upcart_format_item_title', 'upcart_default_cart_item_title_filter', 10, 2 );
+
+add_filter( 'the_content', 'upcart_default_auto_display_content', 20 );
+
