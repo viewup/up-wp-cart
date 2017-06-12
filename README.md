@@ -16,7 +16,8 @@ The plugin has/will have the following features:
  - Filters modifications for theme developers
  - panel config screen
  - Contact Form 7 integration
- - Shortcode/Widgets support (SOON)
+ - Shortcode support
+ - Widgets support (SOON)
  - Cart Update with AJAX (no refresh) and theme integration (SOON)
 
 ## License
