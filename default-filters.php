@@ -99,6 +99,13 @@ function upcart_default_html_attr_formatter( $props = array() ) {
 	return trim( $attr );
 }
 
+/**
+ * Renders the auto display on post excerpt
+ *
+ * @param string $content
+ *
+ * @return string
+ */
 function upcart_default_auto_display_excerpt( $content = '' ) {
 
 	global $post;
@@ -113,8 +120,15 @@ function upcart_default_auto_display_excerpt( $content = '' ) {
 
 }
 
+/**
+ * Renders the auto display on post content
+ *
+ * @param string $content
+ *
+ * @return string
+ */
 function upcart_default_auto_display_content( $content = '' ) {
-	if ( is_single() || !is_search() ) {
+	if ( is_single() || ! is_search() ) {
 		$content = upcart_default_auto_display_excerpt( $content );
 	}
 
