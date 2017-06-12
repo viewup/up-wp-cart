@@ -15,3 +15,5 @@ git repo:
 SVN repo:
 
 `https://plugins.svn.wordpress.org/up-wp-cart/`
+
+for GIT/SVN reference, see https://gist.github.com/kasparsd/3749872
