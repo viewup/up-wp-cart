@@ -20,6 +20,22 @@ function upcart_default_cart_content_filter( $id ) {
 }
 
 /**
+ * The default item title filter
+ *
+ * @param string $html
+ * @param WPCartItem|null $item
+ *
+ * @return string
+ */
+function upcart_default_cart_item_title_filter( $html = '', $item = null ) {
+	if ( ! $item ) {
+		return $html;
+	}
+
+	return trim( $html . ' ' . $item->content->post_title );
+}
+
+/**
  * The default cart price filter
  *
  * @param int $id the item ID
@@ -51,11 +67,11 @@ function upcart_default_cart_price_filter( $id, $price = 0 ) {
  *
  * @return string
  */
-function upcart_default_format_price( $price = 0 ) {
+function upcart_default_format_price( $price = 0, $item = null ) {
 	// get currency option
 	$currency = get_option( 'upcart_currency' );
-	// replace . for ,
-	$price = str_replace( '.', ',', (string) $price );
+	// format number
+	$price = number_format( (float) $price, 2, ',', '.' );
 	// add currency
 	$price = $currency . ' ' . $price;
 
@@ -86,5 +102,6 @@ function upcart_default_html_attr_formatter( $props = array() ) {
 // sets the default filters
 add_filter( UPWPCART_CONTENT_FILTER, 'upcart_default_cart_content_filter' );
 add_filter( UPWPCART_PRICE_FILTER, 'upcart_default_cart_price_filter', 10, 2 );
-add_filter( 'upcart_format_price', 'upcart_default_format_price', 10, 2 );
 add_filter( 'upcart_html_attr', 'upcart_default_html_attr_formatter' );
+add_filter( 'upcart_format_price', 'upcart_default_format_price', 10, 2 );
+add_filter( 'upcart_format_item_title', 'upcart_default_cart_item_title_filter', 10, 2 );

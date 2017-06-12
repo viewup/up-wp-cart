@@ -148,8 +148,20 @@ class WPCart {
 		return $item;
 	}
 
+	/**
+	 * returns the cart ID
+	 * @return mixed
+	 */
 	public function getID() {
 		return $this->ID;
+	}
+
+	/**
+	 * returns the cart total
+	 * @return float
+	 */
+	public function getTotal() {
+		return $this->total;
 	}
 
 	/**
