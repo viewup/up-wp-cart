@@ -170,8 +170,8 @@ function upcart_mail_html_row_item_price( $html, $item ) {
 	return $html;
 }
 
-function upcart_email_item_title( $html, $item ) {
-	return $item->content->post_title;
+function upcart_email_item_title( $html = '', $item ) {
+	return apply_filters( 'upcart_format_item_title', $html, $item );
 }
 
 add_filter( 'cart_email_html_item_row', 'upcart_mail_html_row_item_title', 20, 2 );

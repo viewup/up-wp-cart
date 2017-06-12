@@ -38,8 +38,17 @@ function upcart_settings_fields() {
 	// register the redirect field
 	add_settings_field(
 		'upcart_field_redirect',
-		__( "Redirect page" ),
+		__( "Redirect page", UPWPCART_PLUGIN_DOMAIN ),
 		'upcart_field_redirect_cb',
+		UPWPCART_SETTINGS_PAGE,
+		'upcart_settings_section'
+	);
+
+	// register the redirect field
+	add_settings_field(
+		'upcart_field_auto_display',
+		__( "Automatic display", UPWPCART_PLUGIN_DOMAIN ),
+		'upcart_field_auto_display_cb',
 		UPWPCART_SETTINGS_PAGE,
 		'upcart_settings_section'
 	);
@@ -91,7 +100,7 @@ function upcart_field_post_type_cb() {
 	<?php
 }
 
-// Post type Field render
+// Currency Field render
 function upcart_field_currency_cb() {
 	// get the value of the setting
 	$setting = get_option( 'upcart_currency' );
@@ -109,7 +118,7 @@ function upcart_field_currency_cb() {
 	<?php
 }
 
-// Post type Field render
+// Redirect Field render
 function upcart_field_redirect_cb() {
 	// get the value of the setting
 	$setting = get_option( 'upcart_redirect' );
@@ -133,6 +142,22 @@ function upcart_field_redirect_cb() {
     <p class="description">
         <span><?php esc_html_e( 'Default' ); ?>:</span>
         <strong><?php esc_html_e( 'The current page', UPWPCART_PLUGIN_DOMAIN ); ?></strong>
+    </p>
+	<?php
+}
+
+// Auto display render
+function upcart_field_auto_display_cb() {
+	// output the field
+	?>
+    <label for="upcart_auto_display">
+        <input name="upcart_auto_display" type="checkbox" id="upcart_auto_display"
+               value="true" <?php checked( 'true', get_option( 'upcart_auto_display' ) ); ?> />
+        <span><?php esc_html_e( 'Automatically display Cart Controls' ) ?></span>
+    </label>
+    <p class="description">
+		<?php esc_html_e( 'If checked, the cart controls will automatically display on the select post type', UPWPCART_PLUGIN_DOMAIN ); ?>
+        .
     </p>
 	<?php
 }
