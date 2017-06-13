@@ -157,6 +157,12 @@ function upwpcart_shortcode_item_price( $props = array(), $children = '', $tag =
 	$price          = $item->price;
 	$state['class'] .= ' upwpcart-item-price';
 
+	if ( isset( $state['total'] ) ) {
+		$price          = $item->total;
+		$state['class'] .= ' upwpcart-item-price-total';
+		unset( $state['total'] );
+	}
+
 	unset( $state['id'] );
 
 	$attr = apply_filters( 'upcart_html_attr', $state, $tag );
