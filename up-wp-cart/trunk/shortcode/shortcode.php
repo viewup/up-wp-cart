@@ -236,27 +236,23 @@ function upwpcart_shortcode_item( $props = array(), $children = '', $tag = '' ) 
 
 	// customize controls
 	if ( isset( $props['in-cart'] ) ) {
-		$controls = apply_filters( 'upcart_shortcode_item_incart', "[wpcart_title][wpcart_price][wpcart_amount][wpcart_update][wpcart_remove]", $cart_item_id );
-		$children .= $controls;
+		$children .= "[wpcart_title][wpcart_price][wpcart_amount][wpcart_update][wpcart_remove]";
 		unset( $props['in-cart'] );
 	}
 	if ( isset( $props['add'] ) ) {
-		$controls = apply_filters( 'upcart_shortcode_item_add', "[wpcart_add]", $cart_item_id );
-		$children .= $controls;
+		$children .= "[wpcart_add]";
 		unset( $props['add'] );
 	}
-	if ( isset( $props['amount'] ) ) {
+	if ( isset( $props['update'] ) || isset( $props['amount'] ) ) {
 		$children .= "[wpcart_amount]";
 		unset( $props['amount'] );
 	}
 	if ( isset( $props['update'] ) ) {
-		$controls = apply_filters( 'upcart_shortcode_item_update', "[wpcart_amount][wpcart_update]", $cart_item_id );
-		$children .= $controls;
+		$children .= "[wpcart_update]";
 		unset( $props['update'] );
 	}
 	if ( isset( $props['remove'] ) ) {
-		$controls = apply_filters( 'upcart_shortcode_item_remove', "[wpcart_remove]", $cart_item_id );
-		$children .= $controls;
+		$children .= "[wpcart_remove]";
 		unset( $props['remove'] );
 	}
 
