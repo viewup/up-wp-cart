@@ -6,7 +6,7 @@ Description: Simple Cart for WordPress
 Author: ViewUp
 Author URI: http://viewup.com.br/
 Version: 0.1.0
-Text Domain: up-wp-cart
+Text Domain: upcart
 License: MIT
 */
 

@@ -1,0 +1,121 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: pt\n"
+
+# Empty cart
+msgid "Empty cart"
+msgstr "Carrinho vazio"
+
+# The cart is empty
+msgid "The cart is empty"
+msgstr "O Carrinho está vazio"
+
+# Update
+msgid "Update"
+msgstr "Atualizar"
+
+# Remove
+msgid "Remove"
+msgstr "Remover"
+
+# Add to Cart
+msgid "Add to Cart"
+msgstr "Adicionar ao Carrinho"
+
+# Total
+msgid "Total"
+msgstr "Total"
+
+# General Settings
+msgid "General Settings"
+msgstr "Configurações Gerais"
+
+# TIP: install Advanced Custom Fields to configure the pricing
+msgid "TIP: install Advanced Custom Fields to configure the pricing"
+msgstr "DICA: instale Advanced Custom Fields para configurar o preço"
+
+# Product
+msgid "Product"
+msgstr "Produto"
+
+# Quantity
+msgid "Quantity"
+msgstr "Quantidade"
+
+# Price
+msgid "Price"
+msgstr "Preço"
+
+# Price Meta
+msgid "Price Meta"
+msgstr "Meta de Preço"
+
+# Type
+msgid "Type"
+msgstr "Tipo"
+
+# Post Type
+msgid "Post Type"
+msgstr "Tipo de Post"
+
+# Currency
+msgid "Currency"
+msgstr "Moeda"
+
+# Redirect page
+msgid "Redirect page"
+msgstr "Página de redirecionamento"
+
+# Automatic display
+msgid "Automatic display"
+msgstr "Exibição automática"
+
+# The same page
+msgid "The same page"
+msgstr "A mesma página"
+
+# The current page
+msgid "The current page"
+msgstr "A página atual"
+
+# Settings saved.
+msgid "Settings saved."
+msgstr "Configurações Salvas."
+
+# cart
+msgid "cart"
+msgstr "carrinho"
+
+# Generate a form-tag for the UP Cart plugin, renders a table. For more details, see %s.
+msgid ""
+"Generate a form-tag for the UP Cart plugin, renders a table. For more "
+"details, see %s."
+msgstr ""
+"Gera uma tag de formulário para o plugin UP Cart. Se torna uma "
+"tabela. Para mais detalhes, veja %s."
+
+# Cart on WPCF7
+msgid "Cart on WPCF7"
+msgstr "Carrinho no WPCF7"
+
+# Field type
+msgid "Field type"
+msgstr "Tipo de campo"
+
+# Name
+msgid "Name"
+msgstr "Nome"
+
+# Insert Tag
+msgid "Insert Tag"
+msgstr "Inserir Tag"
