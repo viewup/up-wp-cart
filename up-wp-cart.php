@@ -69,3 +69,8 @@ require_once UPWPCART_PLUGIN_DIR . '/shortcode/shortcode.php';
  * Import global cart initializer
  */
 require_once UPWPCART_PLUGIN_DIR . '/init.php';
+
+/**
+ * Import scripts and css of plugin
+ */
+require_once UPWPCART_PLUGIN_DIR . '/include/include.php';
