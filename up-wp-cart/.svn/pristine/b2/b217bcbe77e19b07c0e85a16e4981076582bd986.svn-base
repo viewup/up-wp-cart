@@ -63,7 +63,7 @@ add_action( 'admin_init', 'upcart_settings_fields' );
 // Meta Field render
 function upcart_field_meta_cb() {
 	// get the value of the setting we've registered with register_setting()
-	$setting = get_option( 'upcart_meta', 'price' );
+	$setting = get_option( 'upcart_meta' );
 	// output the field
 	?>
     <input type="text" name="upcart_meta" value="<?= esc_attr( $setting ); ?>" placeholder="price">

@@ -44,7 +44,7 @@ function upcart_default_cart_item_title_filter( $html = '', $item = null ) {
  * @return mixed
  */
 function upcart_default_cart_price_filter( $id, $price = 0 ) {
-	$price_meta = get_option( 'upcart_meta' , 'price');
+	$price_meta = get_option( 'upcart_meta' );
 	$newPrice   = get_post_meta( $id, $price_meta, true );
 
 	// parse the value to float, fixing ','
@@ -69,7 +69,7 @@ function upcart_default_cart_price_filter( $id, $price = 0 ) {
  */
 function upcart_default_format_price( $price = 0, $item = null ) {
 	// get currency option
-	$currency = get_option( 'upcart_currency');
+	$currency = get_option( 'upcart_currency' );
 	// format number
 	$price = number_format( (float) $price, 2, ',', '.' );
 	// add currency

@@ -58,7 +58,6 @@ function upcart_mail_render( $html = true ) {
 
 
 	// TODO: add option to choose empty cart after render
-	do_action('upwpcart_send', $cart);
 	$cart->clean();
 
 	return $content;
