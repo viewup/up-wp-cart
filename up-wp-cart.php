@@ -16,6 +16,7 @@ License: MIT
 
 define( 'UPWPCART_VERSION', '0.1.0' );
 define( 'UPWPCART_PLUGIN_DIR', __DIR__ );
+define( 'UPWPCART_PLUGIN_URL', plugins_url(null, __FILE__) );
 define( 'UPWPCART_CLASS_NAME', 'WPCart' );
 define( 'UPWPCART_SESSION_NAME', 'UP_WP_CART' );
 define( 'UPWPCART_COOKIE_NAME', 'upwpcart_init' );
