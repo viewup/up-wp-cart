@@ -54,11 +54,13 @@ WPCart.prototype.throwTypeError = function(obj, typeObj){
 	
 	var assertion;
 
-	if(typeObj == 'Array'){
-		assertion = !(obj instanceof Array);
-	}
-	else{
-		assertion = typeof obj !== typeObj;		
+	switch(typeObj){
+		case 'Array':
+			assertion = !(obj instanceof Array);
+		case 'Integer':
+			assertion = !Number.isInteger(obj);
+		default:
+			assertion = typeof obj !== typeObj;	
 	}
 
 	if (assertion) {
@@ -125,6 +127,15 @@ WPCart.prototype.ajaxPost = function (params) {
 	this.ajax(params);
 };
 
+WPCart.prototype.ajaxAdd = function (params) {
+	this.throwUndefObj(params, 'ajaxAddParams');
+	this.throwTypeError(params, 'object');
+	this.throwUndefObj(params.url, 'ajaxAdd.params.url');
+	this.throwTypeError(params.url, 'string');
+	params.method = 'ADD';
+	this.ajax(params);
+};
+
 WPCart.prototype.getItems = function (callback) {
 	this.throwUndefObj(callback, 'getItemsCallback');
 	this.throwTypeError(callback, 'function');
@@ -134,3 +145,22 @@ WPCart.prototype.getItems = function (callback) {
 		success: callback
 	});
 };
+
+WPCart.prototype.addItem = function(params, callback){
+	this.throwUndefObj(params, 'addItemParams');
+	this.throwTypeError(params, 'object');
+
+	this.throwUndefObj(params.id, 'addItems.params.id');
+	this.throwTypeError(params.id, 'Integer');
+
+	this.throwUndefObj(params.amount, 'addItems.params.amount');
+	this.throwTypeError(params.amount, 'Integer');
+
+	this.throwUndefObj(callback, 'addItemCallback');
+	this.throwTypeError(callback, 'function');
+
+	this.ajaxAdd({
+		url : this.baseAjaxUrl,
+		success: callback
+	});
+}
