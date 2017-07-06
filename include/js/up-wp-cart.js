@@ -4,7 +4,7 @@ function WPCart() {
 		WPCartData.homeUrl, 
 		'wp_json',
 		WPCartData.UPWPCART_API_BASE,
-		UPWPCART_API_ROUTE,	
+		WPCartData.UPWPCART_API_ROUTE,	
 	]);
 }
 
