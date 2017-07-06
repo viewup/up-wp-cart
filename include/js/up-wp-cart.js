@@ -6,6 +6,8 @@ function WPCart() {
 		WPCartData.UPWPCART_API_BASE,
 		WPCartData.UPWPCART_API_ROUTE,	
 	]);
+
+	this.errorPrefix = 'UPWPCart';
 }
 
 WPCart.prototype.urlJoin = function (pathStrings) {
@@ -38,13 +40,13 @@ WPCart.prototype.throwRequestLibError = function (requestLib) {
 		message = 'No request library available!';
 	}
 
-	throw new Error(message);
+	throw new Error(this.errorPrefix + ': ' + message);
 };
 
 WPCart.prototype.throwUndefObj = function (obj, objName) {
 
 	if (typeof obj === 'undefined') {
-		throw new Error('Object is not defined: ' + objName);
+		throw new Error(this.errorPrefix + ': ' + 'Object is not defined: ' + objName);
 	}
 };
 
@@ -60,7 +62,7 @@ WPCart.prototype.throwTypeError = function(obj, typeObj){
 	}
 
 	if (assertion) {
-		throw new Error("Invalid type: Parameter '" + obj + "'  is not '" + typeObj + "'.");
+		throw new Error(this.errorPrefix + ': ' + "Invalid type: Parameter '" + obj + "'  is not '" + typeObj + "'.");
 	}	
 	
 }
@@ -82,8 +84,11 @@ WPCart.prototype.jqueryAjaxHandle = function (options) {
 };
 
 WPCart.prototype.ajax = function (params) {
-	this.throwUndefObj(params);
+	this.throwUndefObj(params, 'ajaxParams');
 	this.throwTypeError(params, 'object');
+	this.throwUndefObj(params.url, 'ajax.params.url');
+	this.throwTypeError(params.url, 'string');
+
 
 	var defaults = {
 		method: 'GET',
@@ -105,6 +110,7 @@ WPCart.prototype.ajaxGet = function (params) {
 	this.throwUndefObj(params, 'ajaxGetParams');
 	this.throwTypeError(params, 'object');
 	this.throwUndefObj(params.url, 'ajaxGet.params.url');
+	this.throwTypeError(params.url, 'string');
 	
 	params.method = 'GET';
 	this.ajax(params);
@@ -114,12 +120,16 @@ WPCart.prototype.ajaxPost = function (params) {
 	this.throwUndefObj(params, 'ajaxPostParams');
 	this.throwTypeError(params, 'object');
 	this.throwUndefObj(params.url, 'ajaxPost.params.url');
+	this.throwTypeError(params.url, 'string');
 	params.method = 'POST';
 	this.ajax(params);
 };
 
-WPCart.prototype.getItems = function () {
-	// this.ajaxGet();
+WPCart.prototype.getItems = function (callback) {
+	this.ajaxGet({
+		url : this.urlJoin(this.baseAjaxUrl, 'get'),
+		success: callback
+	});
 };
 
 
