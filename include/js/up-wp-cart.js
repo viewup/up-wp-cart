@@ -155,6 +155,7 @@ WPCart.prototype.addItem = function(params, callback){
 
 	this.ajaxPost({
 		url : this.baseAjaxUrl,
-		success: callback
+		success: callback,
+		data: params
 	});
 }
