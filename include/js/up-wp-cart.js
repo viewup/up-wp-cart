@@ -198,9 +198,8 @@ WPCart.prototype.removeItem = function(params, callback){
 	this.throwTypeError(callback, 'function');
 
 	this.ajaxDelete({
-		url : this.baseAjaxUrl,
+		url : this.urlJoin([this.baseAjaxUrl, params.id]),
 		success: callback,
-		data: params
 	});
 };
 
