@@ -1,9 +1,9 @@
 function WPCart() {
 	this.requestLib = 'jquery';
-	this.baseAjaxUrl = this.urlJoin(
+	this.baseAjaxUrl = this.urlJoin([
 		window.location.href, 
 		'wp_json',		
-	);
+	]);
 }
 
 WPCart.prototype.urlJoin = function (pathStrings) {
@@ -80,6 +80,9 @@ WPCart.prototype.jqueryAjaxHandle = function (options) {
 };
 
 WPCart.prototype.ajax = function (params) {
+	this.throwUndefObj(params);
+	this.throwTypeError(params, 'object');
+
 	var defaults = {
 		method: 'GET',
 	};
@@ -98,13 +101,17 @@ WPCart.prototype.ajax = function (params) {
 
 WPCart.prototype.ajaxGet = function (params) {
 	this.throwUndefObj(params, 'ajaxGetParams');
+	this.throwTypeError(params, 'object');
 	this.throwUndefObj(params.url, 'ajaxGet.params.url');
+	
 	params.method = 'GET';
 	this.ajax(params);
 };
 
 WPCart.prototype.ajaxPost = function (params) {
 	this.throwUndefObj(params, 'ajaxPostParams');
+	this.throwTypeError(params, 'object');
+	this.throwUndefObj(params.url, 'ajaxPost.params.url');
 	params.method = 'POST';
 	this.ajax(params);
 };

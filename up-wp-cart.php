@@ -21,6 +21,8 @@ define( 'UPWPCART_CLASS_NAME', 'WPCart' );
 define( 'UPWPCART_SESSION_NAME', 'UP_WP_CART' );
 define( 'UPWPCART_COOKIE_NAME', 'upwpcart_init' );
 define( 'UPWPCART_MAIN_ID', 'upwpcart_main' );
+define( 'UPWPCART_JS_HANDLE', UPWPCART_MAIN_ID . '_js' );
+define( 'UPWPCART_JS_VARNAME', UPWPCART_CLASS_NAME . 'Data' );
 
 if ( ! defined( 'UPWPCART_API_DOMAIN' ) ) {
 	define( 'UPWPCART_API_DOMAIN', 'up' );
