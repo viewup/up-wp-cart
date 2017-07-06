@@ -130,7 +130,7 @@ WPCart.prototype.getItems = function (callback) {
 	this.throwTypeError(callback, 'function');
 
 	this.ajaxGet({
-		url : this.urlJoin([this.baseAjaxUrl, 'get']),
+		url : this.baseAjaxUrl,
 		success: callback
 	});
 };
