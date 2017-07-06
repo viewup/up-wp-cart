@@ -3,7 +3,8 @@ function WPCart() {
 	this.baseAjaxUrl = this.urlJoin([
 		WPCartData.homeUrl, 
 		'wp_json',
-		WPCartData.UPWPCART_API_BASE		
+		WPCartData.UPWPCART_API_BASE,
+		UPWPCART_API_ROUTE,	
 	]);
 }
 
