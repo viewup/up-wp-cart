@@ -2,7 +2,8 @@ function WPCart() {
 	this.requestLib = 'jquery';
 	this.baseAjaxUrl = this.urlJoin([
 		window.location.href, 
-		'wp_json',		
+		'wp_json',
+		WPCartData.UPWPCART_API_BASE		
 	]);
 }
 
