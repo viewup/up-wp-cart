@@ -57,8 +57,10 @@ WPCart.prototype.throwTypeError = function(obj, typeObj){
 	switch(typeObj){
 		case 'Array':
 			assertion = !(obj instanceof Array);
+			break;
 		case 'Integer':
 			assertion = !Number.isInteger(obj);
+			break;
 		default:
 			assertion = typeof obj !== typeObj;	
 	}
