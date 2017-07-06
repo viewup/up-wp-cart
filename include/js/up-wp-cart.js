@@ -185,3 +185,24 @@ WPCart.prototype.removeItem = function(params, callback){
 		data: params
 	});
 };
+
+WPCart.prototype.updateItem = function(params, callback){
+	this.throwUndefObj(params, 'updateItemParams');
+	this.throwTypeError(params, 'object');
+
+	this.throwUndefObj(params.id, 'updateItem.params.id');
+	this.throwTypeError(params.id, 'Integer');
+
+	this.throwUndefObj(params.amount, 'updateItem.params.amount');
+	this.throwTypeError(params.amount, 'Integer');
+
+	this.throwUndefObj(callback, 'updateItemCallback');
+	this.throwTypeError(callback, 'function');
+
+	this.ajaxPost({
+		url : this.urlJoin([this.baseAjaxUrl, params.id]),
+		success: callback,
+		data: {amount: params.amount}
+	});
+
+}
