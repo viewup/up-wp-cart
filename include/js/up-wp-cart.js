@@ -14,7 +14,7 @@ WPCart.prototype.urlJoin = function (pathStrings) {
 	this.throwTypeError(pathStrings, 'Array');
 
 	var trimmedPaths = pathStrings.map(function (pathString) {
-		var newPathString = pathString;
+		var newPathString = String(pathString);
 
 		if (newPathString.slice(0, 1) == '/') {
 			newPathString = newPathString.slice(1);
