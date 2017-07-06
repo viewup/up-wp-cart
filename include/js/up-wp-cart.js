@@ -156,7 +156,7 @@ WPCart.prototype.addItem = function(params, callback){
 	this.throwUndefObj(params.id, 'addItems.params.id');
 	this.throwTypeError(params.id, 'Integer');
 
-	this.throwUndefObj(params.amount, 'addItems.params.amount');
+	this.throwUndefObj(params.amount, 'addItem.params.amount');
 	this.throwTypeError(params.amount, 'Integer');
 
 	this.throwUndefObj(callback, 'addItemCallback');
@@ -173,7 +173,7 @@ WPCart.prototype.removeItem = function(params, callback){
 	this.throwUndefObj(params, 'removeItemParams');
 	this.throwTypeError(params, 'object');
 
-	this.throwUndefObj(params.id, 'addItems.params.id');
+	this.throwUndefObj(params.id, 'removeItem.params.id');
 	this.throwTypeError(params.id, 'Integer');
 
 	this.throwUndefObj(callback, 'removeItemCallback');
