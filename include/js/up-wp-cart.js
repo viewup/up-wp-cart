@@ -1,89 +1,120 @@
-
-function WPCart(){
+function WPCart() {
 	this.requestLib = 'jquery';
-	this.baseUrl = window.location.href;
+	this.baseAjaxUrl = this.urlJoin(
+		window.location.href, 
+		'wp_json',		
+	);
 }
 
-WPCart.prototype.urlJoin = function(params){
-	this.throwUndefObj(params, 'urlJoinParams');
+WPCart.prototype.urlJoin = function (pathStrings) {
+	this.throwTypeError(pathStrings, 'Array');
+
+	var trimmedPaths = pathStrings.map(function (pathString) {
+		var newPathString = pathString;
+
+		if (newPathString.slice(0, 1) == '/') {
+			newPathString = newPathString.slice(1);
+		}
+
+		if (newPathString.slice(-1) == '/') {
+			newPathString = newPathString.slice(0, -1);
+		}
+
+		return newPathString;
+	});
+
+	return trimmedPaths.join('/');
 
 };
 
-WPCart.prototype.throwRequestLibError = function(requestLib){
+WPCart.prototype.throwRequestLibError = function (requestLib) {
 	var message;
 
-	if(requestLib){
+	if (requestLib) {
 		message = "Request lib: '" + requestLib + "' is not defined!";
-	}
-	else{
+	} else {
 		message = 'No request library available!';
 	}
 
 	throw new Error(message);
 };
 
-WPCart.prototype.throwUndefObj = function(obj, objName){
+WPCart.prototype.throwUndefObj = function (obj, objName) {
 
-	if(typeof obj === 'undefined'){
+	if (typeof obj === 'undefined') {
 		throw new Error('Object is not defined: ' + objName);
-	}	
+	}
 };
 
-WPCart.prototype.jqueryAjaxHandle = function(options){
-	var jquery;
+WPCart.prototype.throwTypeError = function(obj, typeObj){
+	
+	var assertion;
 
-	if(typeof jQuery !== 'undefined'){
-		jquery = jQuery;
-	}
-	else if(typeof $ !== 'undefined'){
-		jquery = $;
+	if(typeObj == 'Array'){
+		assertion = !(obj instanceof Array);
 	}
 	else{
-		this.throwRequestLibError(this.requestLib);
-	}		
+		assertion = typeof obj !== typeObj;		
+	}
 
-	if(typeof jquery !== 'undefined'){
+	if (assertion) {
+		throw new Error("Invalid type: Parameter '" + obj + "'  is not '" + typeObj + "'.");
+	}	
+	
+}
+
+WPCart.prototype.jqueryAjaxHandle = function (options) {
+	var jquery;
+
+	if (typeof jQuery !== 'undefined') {
+		jquery = jQuery;
+	} else if (typeof $ !== 'undefined') {
+		jquery = $;
+	} else {
+		this.throwRequestLibError(this.requestLib);
+	}
+
+	if (typeof jquery !== 'undefined') {
 		jquery.ajax(options);
-	}				
+	}
 };
 
-WPCart.prototype.ajax = function(params){
+WPCart.prototype.ajax = function (params) {
 	var defaults = {
-		method: 'GET',		
+		method: 'GET',
 	};
 
 	var options = Object.assign({}, defaults, params);
 
-	switch(this.requestLib){
-		case 'jquery':		
+	switch (this.requestLib) {
+		case 'jquery':
 			this.jqueryAjaxHandle(options);
 			break;
-		default: 
+		default:
 			this.throwRequestLibError();
-			
+
 	}
 };
 
-WPCart.prototype.ajaxGet = function(params){
+WPCart.prototype.ajaxGet = function (params) {
 	this.throwUndefObj(params, 'ajaxGetParams');
+	this.throwUndefObj(params.url, 'ajaxGet.params.url');
 	params.method = 'GET';
 	this.ajax(params);
 };
 
-WPCart.prototype.ajaxPost = function(params){
+WPCart.prototype.ajaxPost = function (params) {
 	this.throwUndefObj(params, 'ajaxPostParams');
 	params.method = 'POST';
 	this.ajax(params);
 };
 
-WPCart.prototype.getItems = function(){
+WPCart.prototype.getItems = function () {
 	// this.ajaxGet();
 };
 
 
-(function($){
+(function ($) {
 	var instance = new WPCart();
-	instance.ajaxGet();
+	instance.urlJoin('string passed');
 })(jQuery || $);
-
-
