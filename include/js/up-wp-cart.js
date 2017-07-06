@@ -129,6 +129,15 @@ WPCart.prototype.ajaxPost = function (params) {
 	this.ajax(params);
 };
 
+WPCart.prototype.ajaxDelete = function (params) {
+	this.throwUndefObj(params, 'ajaxDeleteParams');
+	this.throwTypeError(params, 'object');
+	this.throwUndefObj(params.url, 'ajaxDelete.params.url');
+	this.throwTypeError(params.url, 'string');
+	params.method = 'DELETE';
+	this.ajax(params);
+};
+
 
 WPCart.prototype.getItems = function (callback) {
 	this.throwUndefObj(callback, 'getItemsCallback');
@@ -158,4 +167,21 @@ WPCart.prototype.addItem = function(params, callback){
 		success: callback,
 		data: params
 	});
-}
+};
+
+WPCart.prototype.removeItem = function(params, callback){
+	this.throwUndefObj(params, 'removeItemParams');
+	this.throwTypeError(params, 'object');
+
+	this.throwUndefObj(params.id, 'addItems.params.id');
+	this.throwTypeError(params.id, 'Integer');
+
+	this.throwUndefObj(callback, 'removeItemCallback');
+	this.throwTypeError(callback, 'function');
+
+	this.ajaxDelete({
+		url : this.baseAjaxUrl,
+		success: callback,
+		data: params
+	});
+};
