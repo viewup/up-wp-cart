@@ -7,7 +7,7 @@ add_action( 'wp_enqueue_scripts', function(){
 
     wp_enqueue_script( 
         'up-wp-cart', 
-        UPWPCART_PLUGIN_URL . '/js/up-wp-cart.js', 
+        UPWPCART_PLUGIN_URL . '/include/js/up-wp-cart.js', 
         array('jquery') 
     );
     // wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array( 'reset' ) );
