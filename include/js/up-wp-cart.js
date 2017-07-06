@@ -149,6 +149,24 @@ WPCart.prototype.getItems = function (callback) {
 	});
 };
 
+
+WPCart.prototype.getItem = function(params, callback){
+
+	this.throwUndefObj(params, 'getItemParams');
+	this.throwTypeError(params, 'object');
+
+	this.throwUndefObj(params.id, 'getItem.params.id');
+	this.throwTypeError(params.id, 'Integer');
+
+	this.throwUndefObj(callback, 'getItemCallback');
+	this.throwTypeError(callback, 'function');
+
+	this.ajaxGet({
+		url : this.urlJoin([this.baseAjaxUrl, params.id]),
+		success: callback,
+	});
+}
+
 WPCart.prototype.addItem = function(params, callback){
 	this.throwUndefObj(params, 'addItemParams');
 	this.throwTypeError(params, 'object');
@@ -204,5 +222,15 @@ WPCart.prototype.updateItem = function(params, callback){
 		success: callback,
 		data: {amount: params.amount}
 	});
+};
 
+WPCart.prototype.clearItems = function(callback){
+
+	this.throwUndefObj(callback, 'clearItemsCallback');
+	this.throwTypeError(callback, 'function');
+
+	this.ajaxDelete({
+		url : this.baseAjaxUrl,
+		success: callback,
+	});	
 }
