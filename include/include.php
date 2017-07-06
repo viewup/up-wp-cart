@@ -13,7 +13,7 @@ add_action( 'wp_enqueue_scripts', function(){
 
     wp_localize_script( UPWPCART_JS_HANDLE, UPWPCART_JS_VARNAME, [
         'UPWPCART_API_BASE' => UPWPCART_API_BASE,
-        'home_url' => get_home_url()
+        'homeUrl' => get_home_url()
     ]);
 
     // wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array( 'reset' ) );
