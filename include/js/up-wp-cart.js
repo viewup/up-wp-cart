@@ -126,14 +126,11 @@ WPCart.prototype.ajaxPost = function (params) {
 };
 
 WPCart.prototype.getItems = function (callback) {
+	this.throwUndefObj(callback, 'getItemsCallback');
+	this.throwTypeError(callback, 'function');
+
 	this.ajaxGet({
-		url : this.urlJoin(this.baseAjaxUrl, 'get'),
+		url : this.urlJoin([this.baseAjaxUrl, 'get']),
 		success: callback
 	});
 };
-
-
-(function ($) {
-	var instance = new WPCart();
-	instance.urlJoin(['string passed']);
-})(jQuery || $);
