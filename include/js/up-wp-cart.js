@@ -116,5 +116,5 @@ WPCart.prototype.getItems = function () {
 
 (function ($) {
 	var instance = new WPCart();
-	instance.urlJoin('string passed');
+	instance.urlJoin(['string passed']);
 })(jQuery || $);
