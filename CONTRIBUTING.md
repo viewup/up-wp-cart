@@ -2,7 +2,7 @@
 
 Thanks for helping the plugin get better!
 
-This project uses GIT (github) for verssion control. SVN is required for wordpress plugin, but only the master can change it.
+This project uses GIT (github) for version control. SVN is required for wordpress plugin, but only the master can change it.
 
 To contribute to the project, create a new Branch for your changes. Then, make a pull request.
 
