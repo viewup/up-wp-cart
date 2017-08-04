@@ -42,11 +42,16 @@ class WPCart {
 	/**
 	 * @return object cart object
 	 */
-	public function get() {
-		return (object) array(
+	public function get( $options = array() ) {
+		$instance = (object) array(
 			'items' => $this->items,
 			'total' => $this->total,
 		);
+		if ( $options['render'] ) {
+			$instance->rendered = do_shortcode( '[wpcart]' );
+		}
+
+		return $instance;
 	}
 
 	/**

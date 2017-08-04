@@ -296,6 +296,7 @@ function upwpcart_shortcode_item( $props = array(), $children = '', $tag = '' ) 
  * @return string
  */
 function upwpcart_shortcode_cart( $props = array(), $children = '', $tag = '' ) {
+	/* @var $cart WPCart */
 	global $cart;
 
 	$state = upwpcart_shortcode_atts( array(
@@ -303,11 +304,12 @@ function upwpcart_shortcode_cart( $props = array(), $children = '', $tag = '' ) 
 		'class' => ''
 	), $props, $tag );
 
-	$attr           = upwpcart_shortcode_atts( $state );
 	$render         = '';
 	$state['class'] = trim( $state['class'] . ' upwpcart-cart' );
 
-	$render .= "<div {$attr} data-upwpcart-cart>";
+	$attr = apply_filters( 'upcart_html_attr', $state, $tag );
+
+	$render .= "<div {$attr} data-upwpcart-cart=\"{$cart->getID()}\">";
 	$render .= $children;
 	$render .= '<ul>';
 

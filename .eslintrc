@@ -1,0 +1,48 @@
+{
+    "env": {
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "arrowFunctions": true,
+            "binaryLiterals": true,
+            "blockBindings": true,
+            "classes": true,
+            "defaultParams": true,
+            "destructuring": true,
+            "forOf": true,
+            "generators": true,
+            "modules": true,
+            "objectLiteralComputedProperties": true,
+            "objectLiteralDuplicateProperties": true,
+            "objectLiteralShorthandMethods": true,
+            "objectLiteralShorthandProperties": true,
+            "octalLiterals": true,
+            "regexUFlag": true,
+            "regexYFlag": true,
+            "spread": true,
+            "superInFunctions": true,
+            "templateStrings": true,
+            "unicodeCodePointEscapes": true,
+            "globalReturn": true,
+            "jsx": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-console": "warn",
+        "global-require": "error",
+        "class-methods-use-this": "warn",
+        "prefer-const": "error",
+        "no-use-before-define": "warn"
+    },
+    "globals": {
+        "document": true,
+        "window": true,
+        "jQuery": true,
+        "console": true
+    }
+}

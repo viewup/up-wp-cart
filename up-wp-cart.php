@@ -5,7 +5,7 @@ Plugin URI: https://github.com/viewup/up-wp-cart
 Description: Simple Cart for WordPress
 Author: ViewUp
 Author URI: http://viewup.com.br/
-Version: 0.1.0
+Version: 0.2.0
 Text Domain: upcart
 License: MIT
 */
@@ -16,13 +16,10 @@ License: MIT
 
 define( 'UPWPCART_VERSION', '0.1.0' );
 define( 'UPWPCART_PLUGIN_DIR', __DIR__ );
-define( 'UPWPCART_PLUGIN_URL', plugins_url(null, __FILE__) );
 define( 'UPWPCART_CLASS_NAME', 'WPCart' );
 define( 'UPWPCART_SESSION_NAME', 'UP_WP_CART' );
 define( 'UPWPCART_COOKIE_NAME', 'upwpcart_init' );
-define( 'UPWPCART_MAIN_ID', 'upwpcart_main' );
-define( 'UPWPCART_JS_HANDLE', UPWPCART_MAIN_ID . '_js' );
-define( 'UPWPCART_JS_VARNAME', UPWPCART_CLASS_NAME . 'Data' );
+define( 'UPWPCART_MAIN_ID', 'main' );
 
 if ( ! defined( 'UPWPCART_API_DOMAIN' ) ) {
 	define( 'UPWPCART_API_DOMAIN', 'up' );
@@ -76,4 +73,4 @@ require_once UPWPCART_PLUGIN_DIR . '/init.php';
 /**
  * Import scripts and css of plugin
  */
-require_once UPWPCART_PLUGIN_DIR . '/include/include.php';
+require_once UPWPCART_PLUGIN_DIR . '/inc/scripts.php';
