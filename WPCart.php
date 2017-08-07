@@ -40,9 +40,18 @@ class WPCart {
 	}
 
 	/**
+	 * Get formated cart instance
+	 *
+	 * @param array $options
+	 *
 	 * @return object cart object
 	 */
 	public function get( $options = array() ) {
+		$items = array();
+		foreach ( $this->items as $item ) {
+			/* @var $item WPCartItem */
+			$items[] = $item->get( $options );
+		}
 		$instance = (object) array(
 			'items' => $this->items,
 			'total' => $this->total,

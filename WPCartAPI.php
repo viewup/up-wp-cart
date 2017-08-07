@@ -45,11 +45,11 @@ class WPCartAPI extends WP_REST_Controller {
 		$this->register_rest_route( '', array(
 			array(
 				'methods'  => self::GET,
-				'callback' => $this->getCallback( 'get' )
+				'callback' => $this->getCallback( 'get_items' )
 			),
 			array(
 				'methods'  => self::ADD,
-				'callback' => $this->getCallback( 'add' ),
+				'callback' => $this->getCallback( 'create_item' ),
 				'args'     => array(
 					'id'     => array(
 						'required'          => true,
@@ -71,11 +71,11 @@ class WPCartAPI extends WP_REST_Controller {
 		$this->register_rest_route( self::ID, array(
 			array(
 				'methods'  => self::GET,
-				'callback' => $this->getCallback( 'getItem' ),
+				'callback' => $this->getCallback( 'get_item' ),
 			),
 			array(
 				'methods'  => self::EDIT,
-				'callback' => $this->getCallback( 'update' ),
+				'callback' => $this->getCallback( 'update_item' ),
 				'args'     => array(
 					'amount' => array(
 						'required'          => false,
@@ -85,7 +85,7 @@ class WPCartAPI extends WP_REST_Controller {
 			),
 			array(
 				'methods'  => WP_REST_Server::DELETABLE,
-				'callback' => $this->getCallback( 'remove' ),
+				'callback' => $this->getCallback( 'delete_item' ),
 			),
 		) );
 
@@ -136,28 +136,28 @@ class WPCartAPI extends WP_REST_Controller {
 		register_rest_route( $this->base, $this->route . $this->render_prefix . $route, $args );
 	}
 
-	public function get( WP_REST_Request $request ) {
+	public function get_items( WP_REST_Request $request ) {
 		return $this->cart->get( $request );
 	}
 
-	public function getItem( WP_REST_Request $request ) {
+	public function get_item( WP_REST_Request $request ) {
 		$id = $request['id'];
 
 		return $this->cart->getItem( intval( $id ) );
 	}
 
-	public function add( WP_REST_Request $request ) {
+	public function create_item( WP_REST_Request $request ) {
 		$id     = $request['id'];
 		$amount = $request['amount'];
 
 		return $this->cart->add( intval( $id ), intval( $amount ) )->get( $request );
 	}
 
-	public function remove( WP_REST_Request $request ) {
+	public function delete_item( WP_REST_Request $request ) {
 		return $this->cart->remove( intval( $request['id'] ) )->get( $request );
 	}
 
-	public function update( WP_REST_Request $request ) {
+	public function update_item( WP_REST_Request $request ) {
 		return $this->cart->update( intval( $request['id'] ), intval( $request['amount'] ) )->get( $request );
 	}
 

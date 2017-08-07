@@ -42,6 +42,23 @@ class WPCartItem {
 	}
 
 	/**
+	 * Get Formated Cart item instance
+	 *
+	 * @param array $options
+	 *
+	 * @return object
+	 */
+	public function get( $options = array() ) {
+		return (object) array(
+			'ID'      => $this->ID,
+			'amount'  => $this->amount,
+			'price'   => $this->price,
+			'total'   => $this->total,
+			'content' => $this->content,
+		);
+	}
+
+	/**
 	 * Update cart's item
 	 *
 	 * @param int [$amount=null]
