@@ -307,15 +307,15 @@ function upwpcart_shortcode_cart( $props = array(), $children = '', $tag = '' ) 
 	$render         = '';
 	$state['class'] = trim( $state['class'] . ' upwpcart-cart' );
 
+	// list wrapper
+	$list = apply_filters( 'upcart_html_list', '<ul class="upwpcart-list">%s</ul>', $cart, $state );
+
 	$attr = apply_filters( 'upcart_html_attr', $state, $tag );
 
 	$render .= "<div {$attr} data-upwpcart-cart=\"{$cart->getID()}\">";
 	$render .= $children;
-	$render .= '<ul>';
 
-	$render .= '[wpcart_cart_items]';
-
-	$render .= '</ul>';
+	$render .= sprintf( $list, '[wpcart_cart_items]' );
 
 	$render .= '[wpcart_total]';
 	$render .= __( "Total", UPWPCART_PLUGIN_DOMAIN ) . ':';
@@ -377,7 +377,7 @@ function upwpcart_shortcode_cart_item( $props = array(), $children = '', $tag = 
 
 	$attr = apply_filters( 'upcart_html_attr', $state, $tag );
 
-	$render .= "<li {$attr} data-upwp-cart-list-item>";
+	$render .= "<li {$attr} data-upwp-cart-list-item=\"{$id}\"'>";
 	$render .= "[wpcart_item id='{$id}' in-cart]";
 	$render .= "</li>";
 
