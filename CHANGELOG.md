@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.3.1]
+### Fix
+- Fix translation domain
+
 ## [0.3.0]
 ### Added
 - Support to shortcodes

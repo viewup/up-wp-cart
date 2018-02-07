@@ -12,6 +12,11 @@ function upcart_init() {
 		return;
 	}
 
+	/**
+	 * Load plugin translations
+	 */
+	load_plugin_textdomain(UPWPCART_PLUGIN_DOMAIN, false, dirname(plugin_basename(__FILE__)) . '/languages/');
+
 	global $cart;
 
 	/**

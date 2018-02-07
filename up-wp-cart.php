@@ -14,7 +14,7 @@ License: MIT
  * Initialize GLOBALS
  */
 
-define( 'UPWPCART_VERSION', '0.1.0' );
+define( 'UPWPCART_VERSION', '0.3.1' );
 define( 'UPWPCART_PLUGIN_DIR', __DIR__ );
 define( 'UPWPCART_CLASS_NAME', 'WPCart' );
 define( 'UPWPCART_SESSION_NAME', 'UP_WP_CART' );
