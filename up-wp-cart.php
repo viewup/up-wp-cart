@@ -16,10 +16,13 @@ License: MIT
 
 define( 'UPWPCART_VERSION', '0.3.1' );
 define( 'UPWPCART_PLUGIN_DIR', __DIR__ );
+define( 'UPWPCART_PLUGIN_URL', plugins_url(null, __FILE__) );
 define( 'UPWPCART_CLASS_NAME', 'WPCart' );
 define( 'UPWPCART_SESSION_NAME', 'UP_WP_CART' );
 define( 'UPWPCART_COOKIE_NAME', 'upwpcart_init' );
 define( 'UPWPCART_MAIN_ID', 'upwpcart_main' );
+define( 'UPWPCART_JS_HANDLE', UPWPCART_MAIN_ID . '_js' );
+define( 'UPWPCART_JS_VARNAME', UPWPCART_CLASS_NAME . 'Data' );
 
 if ( ! defined( 'UPWPCART_API_DOMAIN' ) ) {
 	define( 'UPWPCART_API_DOMAIN', 'up' );
@@ -69,3 +72,8 @@ require_once UPWPCART_PLUGIN_DIR . '/shortcode/shortcode.php';
  * Import global cart initializer
  */
 require_once UPWPCART_PLUGIN_DIR . '/init.php';
+
+/**
+ * Import scripts and css of plugin
+ */
+require_once UPWPCART_PLUGIN_DIR . '/include/include.php';
